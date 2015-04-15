@@ -49,9 +49,7 @@ angular.module('akoenig.deckgrid').factory('Deckgrid', [
             //
             watcher = this.$$scope.$watchCollection('model', this.$$onModelChange.bind(this));
 
-            // This was getting the listener removed prematurely for some reason.
-            // Just don't clean up
-            // this.$$watchers.push(watcher);
+            this.$$watchers.push(watcher);
 
             //
             // Register media query change events.
@@ -67,7 +65,7 @@ angular.module('akoenig.deckgrid').factory('Deckgrid', [
 
                 self.$$watchers.push(onDestroy);
             });
-
+            
             mql = $window.matchMedia('(orientation: portrait)');
             mql.addListener(self.$$onMediaQueryChange.bind(self));
 
