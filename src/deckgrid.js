@@ -65,7 +65,7 @@ angular.module('akoenig.deckgrid').factory('Deckgrid', [
 
                 self.$$watchers.push(onDestroy);
             });
-            
+
             mql = $window.matchMedia('(orientation: portrait)');
             mql.addListener(self.$$onMediaQueryChange.bind(self));
 
@@ -214,6 +214,15 @@ angular.module('akoenig.deckgrid').factory('Deckgrid', [
         Deckgrid.prototype.$$onMediaQueryChange = function $$onMediaQueryChange () {
             var self = this,
                 layout = this.$$getLayout();
+
+            // Sometimes this listener will get called even though it has
+            // already been removed. Removing it again seems to work and when
+            // the real listener gets called it will still do the appropriate
+            // layout change (in spite of the superfluous call to destroy).
+            if (!layout) {
+                self.destroy();
+                return;
+            }
 
             //
             // Okay, the layout has changed.
