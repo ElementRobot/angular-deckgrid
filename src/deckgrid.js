@@ -49,7 +49,8 @@ angular.module('akoenig.deckgrid').factory('Deckgrid', [
             //
             watcher = this.$$scope.$watchCollection('model', this.$$onModelChange.bind(this));
 
-            this.$$watchers.push(watcher);
+            // This gets the listener removed prematurely. This is a hack.
+            // this.$$watchers.push(watcher);
 
             //
             // Register media query change events.

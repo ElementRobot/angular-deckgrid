@@ -141,7 +141,7 @@ angular.module('akoenig.deckgrid').factory('DeckgridDescriptor', [
             scope.mother = scope.$parent;
 
             // Wait for style to be ready on deckgrid element
-           domWatch = scope.$watch(function() {
+            domWatch = scope.$watch(function() {
                 return $window.getComputedStyle(elem[0], ':before').content;
             }, function(content) {
                 if (content !== '') {
