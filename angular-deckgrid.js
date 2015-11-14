@@ -381,6 +381,15 @@ angular.module('akoenig.deckgrid').factory('Deckgrid', [
             var self = this,
                 layout = this.$$getLayout();
 
+            // Sometimes this listener will get called even though it has
+            // already been removed. Removing it again seems to work and when
+            // the real listener gets called it will still do the appropriate
+            // layout change (in spite of the superfluous call to destroy).
+            if (!layout) {
+                self.destroy();
+                return;
+            }
+
             //
             // Okay, the layout has changed.
             // Creating a new column structure is not avoidable.
